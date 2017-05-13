@@ -1,5 +1,4 @@
 group: edge
-dist: trusty
 install: true
 language: java
 jdk: oraclejdk8
