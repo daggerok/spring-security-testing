@@ -11,5 +11,4 @@ public class SecuredAppApplicationTests {
 
   @Test
   public void contextLoads() {}
-
 }
