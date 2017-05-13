@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '1.5.3.RELEASE'
+}
+
+version = '0.0.1'
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-security')
+    runtime('org.springframework.boot:spring-boot-devtools')
+    compileOnly('org.projectlombok:lombok')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}

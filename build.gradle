@@ -1,0 +1,13 @@
+plugins {
+    id "idea"
+    id "eclipse"
+}
+
+def taskNames = ["clean", "assemble", "test", "build"]
+
+taskNames.each { name ->
+    tasks.create(name) {
+        def build = gradle.includedBuild("secured-app")
+        it.dependsOn build.task(":$name")
+    }
+}

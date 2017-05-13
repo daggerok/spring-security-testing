@@ -1,0 +1,7 @@
+= testing spring security application image:https://travis-ci.org/daggerok/spring-security-testing.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/spring-security-testing"]
+
+in progress..
+
+[source,bash]
+----
+gradle clean build
