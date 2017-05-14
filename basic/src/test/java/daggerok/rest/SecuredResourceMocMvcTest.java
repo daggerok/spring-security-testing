@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class SecuredResourceMocMvcTest {
 
   @Autowired
-  private MockMvc mvc;
+  MockMvc mvc;
 
   @Test
   @WithMockUser

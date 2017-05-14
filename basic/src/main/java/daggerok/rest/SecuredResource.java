@@ -1,5 +1,6 @@
 package daggerok.rest;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,7 +12,7 @@ import static java.util.Collections.singletonMap;
 public class SecuredResource {
 
   @GetMapping("/")
-//  @PreAuthorize("authenticated")
+  @PreAuthorize("authenticated")
   public Map<String, Object> securedMethod() {
     return singletonMap("result", "good");
   }

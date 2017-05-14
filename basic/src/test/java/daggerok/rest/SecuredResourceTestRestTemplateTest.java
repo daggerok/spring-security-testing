@@ -22,7 +22,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class SecuredResourceTestRestTemplateTest {
 
   @Autowired
-  private TestRestTemplate rest;
+  TestRestTemplate rest;
 
   @Test
   public void securedMethod() throws Exception {
