@@ -3,6 +3,7 @@ install: true
 language: java
 jdk: oraclejdk8
 before_install:
+  - gradle --stop
   # gradle
   - curl -s "https://get.sdkman.io" | bash
   - mkdir -p "$HOME/.sdkman/etc"

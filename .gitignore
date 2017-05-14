@@ -1,12 +1,3 @@
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-.gradle/
-gradle/
-gradlew*
-
 ### STS ###
 .apt_generated
 .classpath
@@ -22,3 +13,13 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+### IntelliJ IDEA ###
+.gradle/
+gradlew*
+.DS_Store
+*.iws
+*.iml
+*.ipr
+.idea
+!.idea/runConfigurations/*
