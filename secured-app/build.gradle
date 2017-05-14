@@ -1,9 +1,10 @@
 plugins {
-    id 'java'
-    id 'org.springframework.boot' version '1.5.3.RELEASE'
+    id"java"
+    id"org.asciidoctor.convert" version"1.5.3"
+    id"org.springframework.boot" version"1.5.3.RELEASE"
 }
 
-version = '0.0.1'
+version ="0.0.1"
 sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
@@ -11,9 +12,33 @@ repositories {
 }
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.boot:spring-boot-starter-security')
-    runtime('org.springframework.boot:spring-boot-devtools')
-    compileOnly('org.projectlombok:lombok')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compileOnly"org.projectlombok:lombok"
+    compile"org.springframework.boot:spring-boot-starter-web"
+    compile"org.springframework.boot:spring-boot-starter-security"
+    runtime"org.springframework.boot:spring-boot-devtools"
+    testCompileOnly"org.projectlombok:lombok"
+    asciidoctor"org.springframework.restdocs:spring-restdocs-asciidoctor:1.2.1.RELEASE"
+    testCompile"org.springframework.restdocs:spring-restdocs-mockmvc"
+    testCompile"org.springframework.boot:spring-boot-starter-test"
+    testCompile"org.springframework.security:spring-security-test"
+}
+
+ext {
+    snippetsDir = file("build/generated-snippets")
+}
+
+test {
+    outputs.dir snippetsDir
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+jar {
+    dependsOn asciidoctor
+    from ("${asciidoctor.outputDir}/html5") {
+        into"static/docs"
+    }
 }

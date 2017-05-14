@@ -1,22 +1,18 @@
 package daggerok.rest;
 
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
 import java.util.Map;
+
+import static java.util.Collections.singletonMap;
 
 @RestController
 public class SecuredResource {
 
-  @GetMapping
+  @GetMapping("/")
+//  @PreAuthorize("authenticated")
   public Map<String, Object> securedMethod() {
-    return Collections.singletonMap("response", "OK");
-  }
-
-  @ExceptionHandler(Throwable.class)
-  public Map<String, Object> globalErrorHandler(Throwable throwable) {
-    return Collections.singletonMap("error", throwable.getMessage());
+    return singletonMap("result", "good");
   }
 }
