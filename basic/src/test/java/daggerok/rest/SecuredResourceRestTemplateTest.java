@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import static java.lang.String.format;
+import static java.util.Collections.singletonMap;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.http.HttpMethod.GET;
@@ -41,13 +42,15 @@ public class SecuredResourceRestTemplateTest {
   @Test
   public void securedMethod() throws Exception {
 
-    val responseEntity = rest.exchange(path(), GET, new HttpEntity<>(new HttpHeaders() {{
-      val plainText = "user:password";
-      val plainBytes = plainText.getBytes(StandardCharsets.UTF_8);
-      val encodedBytes = Base64.encodeBase64(plainBytes);
-      val authHeader = format("Basic %s", new String(encodedBytes));
-      set("Authorization", authHeader);
-    }}), Map.class);
+    val plainText = "user:password";
+    val plainBytes = plainText.getBytes(StandardCharsets.UTF_8);
+    val encodedBytes = Base64.encodeBase64(plainBytes);
+    val authHeader = format("Basic %s", new String(encodedBytes));
+    val httpHeaders = new HttpHeaders();
+    httpHeaders.add("Authorization", authHeader);
+
+    val requestEntity = new HttpEntity<>(httpHeaders);
+    val responseEntity = rest.exchange(path(), GET, requestEntity, Map.class);
 
     assertThat(responseEntity.getStatusCode(), is(HttpStatus.OK));
     assertThat(responseEntity.getBody().get("result"), is("good"));

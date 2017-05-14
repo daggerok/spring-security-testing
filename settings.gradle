@@ -1,2 +1,3 @@
 rootProject.name = "spring-security-testing"
 includeBuild "basic"
+includeBuild "oauth2"
