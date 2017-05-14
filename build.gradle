@@ -7,7 +7,7 @@ def taskNames = ["clean", "assemble", "test", "build"]
 
 taskNames.each { name ->
     tasks.create(name) {
-        def build = gradle.includedBuild("secured-app")
+        def build = gradle.includedBuild("basic")
         it.dependsOn build.task(":$name")
     }
 }

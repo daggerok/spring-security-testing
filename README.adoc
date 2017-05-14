@@ -3,5 +3,9 @@
 in progress..
 
 [source,bash]
-----
 gradle clean build
+
+dev
+
+[source,bash]
+gradle -t test
