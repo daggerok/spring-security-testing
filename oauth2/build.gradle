@@ -1,0 +1,85 @@
+buildscript {
+    ext {
+        springBootVersion = "1.5.3.RELEASE"
+        springCloudVersion = "Dalston.RELEASE"
+    }
+}
+
+plugins {
+    id "java"
+    id "idea"
+    id "maven"
+    id "eclipse"
+    id "com.github.ben-manes.versions" version "0.14.0"
+    id "io.spring.dependency-management" version "1.0.2.RELEASE"
+    id "org.springframework.boot" version "1.5.3.RELEASE" apply false
+}
+
+dependencies {
+    compile("org.springframework.cloud:spring-cloud-starter-oauth2")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    runtime("org.springframework.boot:spring-boot-devtools")
+    compileOnly("org.projectlombok:lombok")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+allprojects {
+
+    apply plugin: "java"
+    apply plugin: "maven"
+
+    version = "0.0.1"
+    group = "daggerok"
+    sourceCompatibility = 1.8
+
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+}
+
+subprojects {
+
+    apply plugin: "org.springframework.boot"
+
+    dependencies {
+        compile "org.projectlombok:lombok",
+                "org.postgresql:postgresql:9.4.1212",
+                "org.springframework.boot:spring-boot-starter-web",
+                "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+        runtime "org.springframework.boot:spring-boot-devtools"
+        testCompile "org.springframework.boot:spring-boot-starter-test"
+    }
+
+    springBoot { executable = true }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+            mavenBom "org.springframework.boot:spring-boot-starter-parent:$springBootVersion"
+            mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
+        }
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+        mavenBom "org.springframework.boot:spring-boot-starter-parent:$springBootVersion"
+        mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
+    }
+}
+
+subprojects.each { subproject ->
+    ["clean", "assemble", "test", "build", "install"].each { taskName ->
+        def task = tasks.findByName(taskName)
+        def subtask = tasks.findByPath(":$subproject.name:$taskName")
+
+        task.dependsOn subtask
+    }
+}
+
+

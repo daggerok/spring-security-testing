@@ -1,9 +1,11 @@
 group: edge
+dist: trusty
 install: true
 language: java
 jdk: oraclejdk8
+env:
+  DOCKER_COMPOSE_VERSION: 1.13.0
 before_install:
-  - gradle --stop
   # gradle
   - curl -s "https://get.sdkman.io" | bash
   - mkdir -p "$HOME/.sdkman/etc"
@@ -12,8 +14,25 @@ before_install:
   - source "$HOME/.sdkman/bin/sdkman-init.sh"
   - sdk use gradle
   - source "$HOME/.sdkman/bin/sdkman-init.sh"
+  # docker-compose
+  - sudo rm -rf /usr/local/bin/docker-compose
+  - export DOCKER_COPOSE_URL=https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)
+  - curl -L $DOCKER_COPOSE_URL > docker-compose
+  - chmod +x docker-compose
+  - sudo mv -f docker-compose /usr/local/bin
+  - #sudo kill $(sudo lsof -t -i:5432)
+  - sudo pkill -u postgres
 script:
-  - gradle clean build
+  - gradle clean assemble
+
+  - gradle composeUp
+  - bash oauth2/auth-server/build/libs/*.jar &
+  - sleep 20
+  - curl --user user:pass localhost:9999 -H'content-type:application/json' -d'{"username":"test"}'
+  - curl --user user:pass localhost:9999
+  - pkill java
+
+  - gradle integrationTests
 after_script:
   - gradle --stop
 cache:

@@ -3,9 +3,16 @@
 in progress..
 
 [source,bash]
-gradle clean build
+gradle clean install
 
 dev
 
 [source,bash]
 gradle -t test
+gradle integrationTests
+
+docker-compose
+
+[source,bash]
+gradle composeUp
+gradle composeDown

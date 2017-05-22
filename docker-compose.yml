@@ -1,0 +1,17 @@
+version: "2.1"
+services:
+  db:
+    container_name: postgres
+    image: healthcheck/postgres:alpine
+    ports: ["5432:5432"]
+    networks: [backing-services]
+    volumes: ["db-data:/var/lib/postgresql/data"]
+    environment:
+      POSTGRES_DB: auth-server
+      POSTGRES_USER: auth-server
+      POSTGRES_PASSWORD: auth-server
+volumes:
+  db-data: {}
+networks:
+  backing-services:
+    driver: bridge

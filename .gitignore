@@ -15,6 +15,7 @@ nbdist/
 .nb-gradle/
 
 ### IntelliJ IDEA ###
+target/
 .gradle/
 gradlew*
 .DS_Store
@@ -23,3 +24,6 @@ gradlew*
 *.ipr
 .idea
 !.idea/runConfigurations/*
+*src/main/gen/
+*.default
+spring-security-oauth/

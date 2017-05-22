@@ -1,0 +1,26 @@
+plugins {
+    id "cn.bestwu.propdeps" version "0.0.10"
+    id "cn.bestwu.propdeps-idea" version "0.0.10"
+    id "cn.bestwu.propdeps-maven" version "0.0.10"
+    id "cn.bestwu.propdeps-eclipse" version "0.0.10"
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.8"
+}
+
+querydsl {
+    querydslSourcesDir = 'src/main/gen'
+    querydslDefault = true
+    jpa = true
+}
+
+sourceSets {
+    generated
+    main
+    test
+}
+
+dependencies {
+    compile "org.springframework.cloud:spring-cloud-starter-oauth2",
+            "org.springframework.boot:spring-boot-starter-data-jpa",
+            "com.querydsl:querydsl-jpa:4.1.4",
+            "org.hibernate:hibernate-java8"
+}

@@ -3,11 +3,51 @@ plugins {
     id "eclipse"
 }
 
-def taskNames = ["clean", "assemble", "test", "build"]
+def projectNames = ["basic", "oauth2"]
+def prev = "clean"
 
-taskNames.each { name ->
-    tasks.create(name) {
-        def build = gradle.includedBuild("basic")
-        it.dependsOn build.task(":$name")
+["clean", "assemble", "test", "build", "install"].each { taskName ->
+    tasks.create(taskName) {
+        projectNames.each { projectName ->
+            def build = gradle.includedBuild(projectName)
+            it.dependsOn build.task(":$taskName")
+
+            if (taskName == prev) return
+            it.shouldRunAfter ":$prev"
+            prev = taskName
+        }
     }
+}
+
+/**
+ * docker rm -v -f oauth2;
+ *
+ * docker run -d --rm \
+ *               --name oauth2 \
+ *               -p 5432:5432 \
+ *               -e POSTGRES_PASSWORD=oauth2 \
+ *               -e POSTGRES_DB=oauth2
+ *               postgres:9.4-alpine
+ */
+
+def docerCompose = "docker-compose --project-name=oauth2"
+
+task composeUp(type: Exec) {
+    executable "bash"
+    args "-c", """
+                    $docerCompose down -v \
+                    && $docerCompose up -d --build \
+                    && echo "waiting 5 seconds for backing services bootstrap..." \
+                    && sleep 5
+               """
+}
+
+task composeDown(type: Exec) {
+    executable "bash"
+    args "-c", "$docerCompose down -v"
+}
+
+task integrationTests(dependsOn: ":test") {
+    dependsOn composeUp
+    finalizedBy composeDown
 }
