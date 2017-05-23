@@ -6,6 +6,7 @@ plugins {
 }
 
 version = "0.0.1"
+group = "daggerok"
 sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
