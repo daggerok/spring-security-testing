@@ -1,7 +1,5 @@
 security:
-  user:
-    password: pass
   oauth2:
-    authorization:
+    resource:
       jwt:
         signingKey: very-secret!

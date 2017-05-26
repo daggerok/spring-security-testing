@@ -3,5 +3,6 @@ spring:
     name: resource-server
   profiles:
     include: >
+      db,
       props,
-      db-config
+      security

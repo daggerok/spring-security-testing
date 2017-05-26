@@ -1,6 +1,11 @@
-= testing spring security application image:https://travis-ci.org/daggerok/spring-security-testing.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/spring-security-testing"]
+= using jwt symmetric signing key image:https://travis-ci.org/daggerok/spring-security-testing.svg?branch=jwt-symmetric-signing-key["Build Status", link="https://travis-ci.org/daggerok/spring-security-testing"]
 
-implemented auth and resource servers with JWT (symmetric)
+implemented auth and resource servers with JWT (using symmetric signing key)
+
+see:
+
+. oauth2/auth-server
+. oauth2/resource-server
 
 [source,bash]
 gradle clean install
