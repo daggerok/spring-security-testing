@@ -16,21 +16,17 @@ import static org.springframework.http.HttpStatus.CREATED;
 @Transactional(readOnly = true)
 public class ClientResource {
 
-  final ClientRepository clientRepository;
+  final OauthClientDetailsRepository repository;
 
   @GetMapping
-  public List<Client> get() {
-    return clientRepository.findAll();
+  public List<OauthClientDetails> get() {
+    return repository.findAll();
   }
 
   @PostMapping
   @Transactional
   @ResponseStatus(CREATED)
-  public void post(@RequestBody @Validated final Client client) {
-
-    clientRepository.save(
-        clientRepository.findFirstByUsername(client.username)
-                        .map(c -> c.setUsername(client.username))
-                        .orElse(client));
+  public void post(@RequestBody @Validated final OauthClientDetails oauthClientDetails) {
+    repository.save(oauthClientDetails);
   }
 }

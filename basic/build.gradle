@@ -15,14 +15,14 @@ repositories {
 
 dependencies {
     compileOnly "org.projectlombok:lombok"
-    compile "org.springframework.boot:spring-boot-starter-web"
-    compile "org.springframework.boot:spring-boot-starter-security"
+    compile "org.springframework.boot:spring-boot-starter-web",
+            "org.springframework.boot:spring-boot-starter-security"
     runtime "org.springframework.boot:spring-boot-devtools"
     testCompileOnly "org.projectlombok:lombok"
     asciidoctor "org.springframework.restdocs:spring-restdocs-asciidoctor:1.2.1.RELEASE"
-    testCompile "org.springframework.restdocs:spring-restdocs-mockmvc"
-    testCompile "org.springframework.boot:spring-boot-starter-test"
-    testCompile "org.springframework.security:spring-security-test"
+    testCompile "org.springframework.restdocs:spring-restdocs-mockmvc",
+            "org.springframework.boot:spring-boot-starter-test",
+            "org.springframework.security:spring-security-test"
 }
 
 ext {

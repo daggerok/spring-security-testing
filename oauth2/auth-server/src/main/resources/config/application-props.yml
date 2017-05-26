@@ -1,0 +1,11 @@
+db:
+  name: ${DB_NAME:auth-server}
+  user: ${DB_USER:auth-server}
+  pass: ${DB_PASSWORD:auth-server}
+  server:
+    host: ${DB_HOST:localhost}
+    port: ${DB_PORT:5432}
+spring:
+  jpa:
+    hibernate:
+      ddl-auto:
