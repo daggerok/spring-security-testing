@@ -18,13 +18,13 @@ public class ClientResource {
 
   final ClientRepository clientRepository;
 
-  @GetMapping
+  @GetMapping("/")
   public List<Client> get() {
     return clientRepository.findAll();
   }
 
-  @PostMapping
   @Transactional
+  @PostMapping("/")
   @ResponseStatus(CREATED)
   public void post(@RequestBody @Validated final Client client) {
 

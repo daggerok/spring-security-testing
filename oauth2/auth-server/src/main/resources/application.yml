@@ -3,6 +3,7 @@ spring:
     name: auth-server
   profiles:
     include: >
+      props,
       db-config,
       server-config,
       security-config

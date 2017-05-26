@@ -24,6 +24,6 @@ gradlew*
 *.ipr
 .idea
 !.idea/runConfigurations/*
-*src/main/gen/
+oauth2/auth-server/src/main/gen/
 *.default
 spring-security-oauth/
