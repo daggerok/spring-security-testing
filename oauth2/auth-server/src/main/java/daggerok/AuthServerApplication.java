@@ -124,17 +124,28 @@ import java.util.TimeZone;
  *
  * done.
  *
- * basic auth (oauth is not using):
+ * 6. implicit
  *
- * HTTPie:
+ * http://localhost:9999/uaa/oauth/authorize?response_type=token&client_id=admin-app&state=xyz&redirect_uri=http://example.com
  *
- * http --auth user:pass post :9999 username=test
- * http --auth user:pass :9999/
- * <p>
- * cURL:
- * <p>
- * curl --user user:pass localhost:9999 -H'content-type:application/json' -d'{"username":"test"}'
- * curl --user user:pass localhost:9999
+ * choose read scope
+ * click approve
+ *
+ * you will be redirected to:
+ * http://example.com/#access_token=bc423e9c-b145-4c66-b08c-a829c8251644&token_type=bearer&state=xyz&expires_in=43199&scope=read
+ *
+ * ie:
+ *
+ * {
+ *   "access_token": "bc423e9c-b145-4c66-b08c-a829c8251644"
+ *   "token_type": "bearer"
+ *   "state": "xyz"
+ *   "expires_in": "43199"
+ *   "scope": "read"
+ * }
+ *
+ * read more:
+ * https://tools.ietf.org/html/rfc6749#section-4
  */
 @SpringBootApplication
 public class AuthServerApplication {
