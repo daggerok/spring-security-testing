@@ -1,6 +1,7 @@
 package daggerok.config;
 
 import lombok.val;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -16,10 +17,13 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
+  @Value("${security.oauth2.resource.jwt.key-value}")
+  String publicKey;
+
   @Bean
   public JwtAccessTokenConverter jwtAccessTokenConverter() {
     val converter = new JwtAccessTokenConverter();
-    converter.setSigningKey("123");
+    converter.setVerifierKey(publicKey);
     return converter;
   }
 

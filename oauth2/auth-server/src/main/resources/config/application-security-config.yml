@@ -1,3 +1,33 @@
 security:
   user:
     password: pass
+  oauth2:
+    authorization:
+      privateKey: |
+        -----BEGIN RSA PRIVATE KEY-----
+        MIIEogIBAAKCAQEAmIltKGgvSryK6s0Z8IEivYLGYbcvu6D6cAJLEpOCH2Qrm9qx
+        Cx7gZXi548PiHdajUaMuyBmK8hQLPqYeNOS3X1ekZjn4i9wzsWLlisIzr9sJQPtA
+        6URh48mx0HPOBVPk7Tu1w7ebZBL/H9m8Be8TBS7tw1cygMi9BnvBPwVR5TZFFIKF
+        BJdP3TZ6zvlJbYUDA3TQSzaybRhq+HL4wjv4paUxkd4JelfQDBmfQyk2gLnhNk0w
+        ujvJKX7LdfeSRtV26KGY7Hrmrc8CPZsukwGXt6JkwWpn3oWH/+9LJS/G4jdzf7Zo
+        d8tpacALCm6Kllw5UxXmqJJYFfH8xd61S9QRlwIDAQABAoIBAHMuOoXrfeJyUneQ
+        nki0SlZNvJ0mpV2J5fHUWXnSdsxbaG6MiWl7TDhzG/L4A/NCExrfHMEuQHQhXIhX
+        CbIpDqpo1JP4rEx333TP18KaeEsPG4K89rvtzfkiYSmleGkfe1sD3nHGYAkGKy2S
+        zV6xs2wTjqgVXOZQLiQKKNb8nmV0FJi8uWPWGBB+9qJQNDh+I1fdhqfSNdJxbsPl
+        jJyT93qB+NN9/asRuxHjEIDso/G+pU8yl9l+/Roa7pF554zca6E/taF2MM6LBRun
+        xrlGkzAQWmBGk0+WRxURuAX7IgTp+a3QbA8Ib2elmsJvFjWa41ZICo9ATXHFdVbJ
+        jATwZNkCgYEA2URksSTiEYje/gtjG2qjn0OT8eRUZN4JnzehVjEk/6GNpuLsvv49
+        3Z8piyHlSrckLW8oUz3tIOgiNOCiqX551wcvdUVeZWa9UO/CbwjeY7sQAi/SBB7O
+        II4xXhYX+KlZ4MKXfLjE6j9eaFcpQBTwv6O/FkU7k0/A1EEuTyIK6esCgYEAs7rh
+        HvVJnOvYcO00cn0jmHPq6YRcYlyOkd61ERFzkgsgAM7jIaSdZORkzpvpu/x5dPzo
+        hWCV6Hkwd/98ZS+c1sYcDLBIvRMXSASl86nKPpU7TetzrFzN3gZhg4JSi7t7BJLI
+        p8OzBDzBkB5OvSnG7jEqdKmoQv3ezrkJN3P4gAUCgYBFY92Q4gm9tewaUQK3J+jY
+        HdorYFQ/3tZN3pONlqaNakh2a3VXTpXtqT64a/vyT+mjBSRo6ZdJcjoyjygEYBuD
+        vIzAtIYAdr6yEdEUa02zpnPnbuRxYnFM3n0P4piHV3cYHK4LLGvfsJtzUZsgF1AI
+        tMB72WK8mrUoVST4KxQ3PwKBgFwLOd1b6y4lDnyOzkxP0Bn0S3r54UIyeoUz0/EA
+        yfoiHmqriWCiaETSPtocuPAgFaeXGhGsbDlZTzw1KGS9pInNfXH2GdpS25pzXvXR
+        n5S7Ylq+WUgNYxTwmaH67QFIq3ClJ4PbUmO6JbsD+nkf2xQDM+X5OQXN8/xUgObY
+        SoxtAoGAfjbOUPQCo1hrkcrWXhGMVVrHFjc7Kqr+s8ZWkq3ZEzDyLv7VMzfSKadL
+        6AesawSIbV775It0NjPWr/nOjfToMfR7bCbUHPLd0wkbCEEmZvfFyenbqKtbzAQG
+        QyVGxpKbSo53GeQ50T+z0M2j1xO5UIoAWJB5gUIyReu8yDQevdk=
+        -----END RSA PRIVATE KEY-----

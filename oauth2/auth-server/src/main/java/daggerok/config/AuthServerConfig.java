@@ -2,10 +2,12 @@ package daggerok.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -16,14 +18,17 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonMap;
 
 @Configuration
 @RequiredArgsConstructor
 @EnableAuthorizationServer
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
-  final JwtTokenEnhancer jwtTokenEnhancer;
   final AuthenticationManager authenticationManager;
+
+  @Value("${security.oauth2.authorization.privateKey}")
+  String privateKey;
 
   @Bean
   public AccessTokenConverter accessTokenConverter() {
@@ -38,7 +43,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
   @Bean
   public JwtAccessTokenConverter jwtAccessTokenConverter() {
     val jwtAccessTokenConverter = new JwtAccessTokenConverter();
-    jwtAccessTokenConverter.setSigningKey("123");
+    jwtAccessTokenConverter.setSigningKey(privateKey);
     return jwtAccessTokenConverter;
   }
 
@@ -52,42 +57,54 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
   }
 
   @Bean
+  TokenEnhancer jwtTokenEnhancer() {
+    return (accessToken, authentication) -> {
+      val defaultOAuth2AccessToken = (DefaultOAuth2AccessToken) accessToken;
+      defaultOAuth2AccessToken.setAdditionalInformation(singletonMap("ololo", "trololo"));
+      return accessToken;
+    };
+  }
+
+  @Bean
   TokenEnhancerChain tokenEnhancerChain() {
     val tokenEnhancerChain = new TokenEnhancerChain();
-    tokenEnhancerChain.setTokenEnhancers(asList(jwtTokenEnhancer, jwtAccessTokenConverter()));
+    tokenEnhancerChain.setTokenEnhancers(asList(jwtTokenEnhancer(), jwtAccessTokenConverter()));
     return tokenEnhancerChain;
   }
 
   @Override
   public void configure(final ClientDetailsServiceConfigurer clients) throws Exception {
-
+    // @formatter:off
     clients
-        .inMemory()
+      .inMemory()
         .withClient("public-app")
-        .secret("client")
-        .authorizedGrantTypes("implicit", "password", "client_credentials", "authorization_code", "refresh_token")
-        .scopes("read")
-        .and()
+          .secret("client")
+          .authorizedGrantTypes("implicit", "password", "client_credentials", "authorization_code", "refresh_token")
+          .scopes("read")
+      .and()
         .withClient("admin-app")
-        .secret("admin")
-        .authorizedGrantTypes("implicit", "password", "client_credentials", "authorization_code", "refresh_token")
-        .scopes("read", "write");
+          .secret("admin")
+          .authorizedGrantTypes("implicit", "password", "client_credentials", "authorization_code", "refresh_token")
+          .scopes("read", "write");
+    // @formatter:on
   }
 
   @Override
   public void configure(final AuthorizationServerSecurityConfigurer security) throws Exception {
-
+    // @formatter:off
     security
-        .tokenKeyAccess("permitAll()")
-        .checkTokenAccess("isAuthenticated()");
+      .tokenKeyAccess("permitAll()")
+      .checkTokenAccess("isAuthenticated()");
+    // @formatter:on
   }
 
   @Override
   public void configure(final AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-
+    // @formatter:off
     endpoints
-        .tokenStore(tokenStore())
-        .tokenEnhancer(tokenEnhancerChain())
-        .authenticationManager(authenticationManager);
+      .tokenStore(tokenStore())
+      .tokenEnhancer(tokenEnhancerChain())
+      .authenticationManager(authenticationManager);
+    // @formatter:on
   }
 }
