@@ -112,7 +112,11 @@ import java.util.TimeZone;
  *
  * 6. implicit:
  *
- * http://localhost:9999/uaa/oauth/authorize?response_type=token&client_id=admin-app&state=xyz&redirect_uri=http://example.com
+ * browser http://$authServerHost/oauth/authorize?response_type=token&client_id=$clientId&state=$optionalState&redirect_uri=$redirectUri
+ *
+ * ie:
+ *
+ * firefox http://localhost:9999/uaa/oauth/authorize?response_type=token&client_id=admin-app&state=xyz&redirect_uri=http://example.com
  *
  * choose read scope
  * click approve
