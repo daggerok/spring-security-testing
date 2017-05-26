@@ -72,6 +72,58 @@ import java.util.TimeZone;
  *  "token_type": "bearer"
  * }
  *
+ * 5. code (use browser)
+ *
+ * http://auth-server/oauth/authorize?response_type=code&client_id=&clientId&redirect_uri=$redirectUrl
+ *
+ * ie:
+ *
+ * http://localhost:9999/uaa/oauth/authorize?response_type=code&client_id=admin-app&redirect_uri=http://example.com
+ *
+ * <html>
+ *   <body>
+ *     <h1>OAuth Approval</h1>
+ *     <p>Do you authorize 'admin-app' to access your protected resources?</p>
+ *     <form id='confirmationForm' name='confirmationForm' action='/uaa/oauth/authorize' method='post'>
+ *       <input name='user_oauth_approval' value='true' type='hidden'/>
+ *       <ul>
+ *         <li>
+ *           <div class='form-group'>scope.read:
+ *            <input type='radio' name='scope.read' value='true'>Approve</input>
+ *            <input type='radio' name='scope.read' value='false' checked>Deny</input>
+ *           </div>
+ *         </li>
+ *         <li>
+ *           <div class='form-group'>scope.write:
+ *            <input type='radio' name='scope.write' value='true'>Approve</input>
+ *            <input type='radio' name='scope.write' value='false' checked>Deny</input>
+ *           </div>
+ *         </li>
+ *       </ul>
+ *       <label>
+ *         <input name='authorize' value='Authorize' type='submit'/>
+ *       </label>
+ *     </form>
+ *   </body>
+ * </html>
+ *
+ * choose scope and click approve, it will redirect you to
+ * http://example.com/?code=1fYSVu
+ *
+ * then application on exmaple.com should prepare request:
+ *
+ * http --auth admin-app:admin post :9999/uaa/oauth/token\?grant_type=authorization_code\&code=1fYSVu\&redirect_uri=http://example.com\&client_id=admin-app
+ *
+ * {
+ *  "access_token": "93b4ba2a-384f-47d6-9093-32bda8ff033c",
+ *  "expires_in": 43199,
+ *  "refresh_token": "6cd61fac-4701-4b5b-9a2e-320b72102bf3",
+ *  "scope": "read",
+ *  "token_type": "bearer"
+ * }
+ *
+ * done.
+ *
  * basic auth (oauth is not using):
  *
  * HTTPie:
