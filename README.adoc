@@ -1,6 +1,6 @@
 = testing spring security application image:https://travis-ci.org/daggerok/spring-security-testing.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/spring-security-testing"]
 
-in progress..
+implemented auth and resource servers with JWT (symmetric)
 
 [source,bash]
 gradle clean install
