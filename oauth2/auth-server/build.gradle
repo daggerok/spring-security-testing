@@ -1,4 +1,14 @@
+plugins {
+    id "cn.bestwu.propdeps" version "0.0.10"
+    id "cn.bestwu.propdeps-idea" version "0.0.10"
+    id "cn.bestwu.propdeps-maven" version "0.0.10"
+    id "cn.bestwu.propdeps-eclipse" version "0.0.10"
+}
+
 dependencies {
     compile "org.springframework.cloud:spring-cloud-starter-oauth2",
             "org.springframework.security:spring-security-jwt"
+    optional "org.springframework.boot:spring-boot-configuration-processor"
 }
+
+compileJava.dependsOn processResources
