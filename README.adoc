@@ -1,6 +1,56 @@
-= testing spring security application image:https://travis-ci.org/daggerok/spring-security-testing.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/spring-security-testing"]
+= using jwt asymmetric public key for resource and jsk for auth image:https://travis-ci.org/daggerok/spring-security-testing.svg?branch=jwt-asymmetric-public-key-and-jks["Build Status", link="https://travis-ci.org/daggerok/spring-security-testing"]
 
-implemented auth and resource servers with JWT (symmetric)
+implemented auth and resource servers with JWT (asymmetric)
+
+see:
+
+. oauth2/auth-server
+. oauth2/resource-server
+
+keytool usage for generating jks (java key store) files
+
+[source,bash]
+----
+mkdir -p oauth2/auth-server/src/main/resources/security
+cd oauth2/auth-server/src/main/resources/security
+
+# generate jks key (for auth-server)
+keytool -genkeypair -alias oauth2 \
+  -keyalg RSA \
+  -keypass oauth2pass \
+  -keystore oauth2.jks \
+  -storepass oauth2pass
+# console io:
+What is your first and last name?
+  [Unknown]:  Maksim Kostromin
+What is the name of your organizational unit?
+  [Unknown]:  daggerok
+What is the name of your organization?
+  [Unknown]:  daggerok
+What is the name of your City or Locality?
+  [Unknown]:  Odessa
+What is the name of your State or Province?
+  [Unknown]:  Odessa
+What is the two-letter country code for this unit?
+  [Unknown]:  UA
+Is CN=Maksim Kostromin, OU=daggerok, O=daggerok, L=Odessa, ST=Odessa, C=UA correct?
+  [no]:  yes
+
+# export public key (for reource-server)
+keytool -list -rfc --keystore oauth2.jks | openssl x509 -inform pem -pubkey
+# console io:
+Enter keystore password:  oauth2pass
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmIltKGgvSryK6s0Z8IEi
+vYLGYbcvu6D6cAJLEpOCH2Qrm9qxCx7gZXi548PiHdajUaMuyBmK8hQLPqYeNOS3
+X1ekZjn4i9wzsWLlisIzr9sJQPtA6URh48mx0HPOBVPk7Tu1w7ebZBL/H9m8Be8T
+BS7tw1cygMi9BnvBPwVR5TZFFIKFBJdP3TZ6zvlJbYUDA3TQSzaybRhq+HL4wjv4
+paUxkd4JelfQDBmfQyk2gLnhNk0wujvJKX7LdfeSRtV26KGY7Hrmrc8CPZsukwGX
+t6JkwWpn3oWH/+9LJS/G4jdzf7Zod8tpacALCm6Kllw5UxXmqJJYFfH8xd61S9QR
+lwIDAQAB
+-----END PUBLIC KEY-----
+...
+----
 
 [source,bash]
 gradle clean install

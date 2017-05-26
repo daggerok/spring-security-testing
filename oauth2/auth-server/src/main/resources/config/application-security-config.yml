@@ -1,3 +1,9 @@
 security:
   user:
     password: pass
+  oauth2:
+    authorization:
+      key-pair:
+        alias: oauth2
+        password: oauth2pass
+        file-path: security/oauth2.jks
