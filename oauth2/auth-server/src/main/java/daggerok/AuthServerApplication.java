@@ -6,7 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.TimeZone;
 
 /**
- * http --auth $clientId:$secret post /oauth/token?grant_type=password&username=$user&password=$password
+ *
+ * 1. password:
+ *
+ * post /oauth/token?grant_type=password&username=$username&password=$password
  *
  * ie:
  *
@@ -19,9 +22,10 @@ import java.util.TimeZone;
  *  "token_type": "bearer"
  * }
  *
+ *
  * 2. check token:
  *
- * http --auth $clientId:$secret post /oauth/check_token\?token=$access_token
+ * post /oauth/check_token?token=$access_token
  *
  * ie:
  *
@@ -41,9 +45,10 @@ import java.util.TimeZone;
  *  "user_name": "user"
  * }
  *
- * 3. refresh token
  *
- * http --auth $clientId:$secret post /oauth/token\?grant_type=refresh_token\&refresh_token=5e5106da-7afb-4f4f-a577-49e295f51557
+ * 3. refresh token:
+ *
+ * post /oauth/token?grant_type=refresh_token&refresh_token=$refreshToken
  *
  * ie:
  *
@@ -57,9 +62,10 @@ import java.util.TimeZone;
  *  "token_type": "bearer"
  * }
  *
- * 4. client credentials
  *
- * http --auth $clientId:$secret post /oauth/token\?grant_type=client_credentials
+ * 4. client credentials:
+ *
+ * post /oauth/token?grant_type=client_credentials
  *
  * ie:
  *
@@ -72,45 +78,26 @@ import java.util.TimeZone;
  *  "token_type": "bearer"
  * }
  *
- * 5. code (use browser)
  *
- * http://auth-server/oauth/authorize?response_type=code&client_id=&clientId&redirect_uri=$redirectUrl
+ * 5. code (use browser):
+ *
+ * browser http://$authServerHost/oauth/authorize?response_type=code&client_id=$clientId&redirect_uri=$redirectUrl
  *
  * ie:
  *
- * http://localhost:9999/uaa/oauth/authorize?response_type=code&client_id=admin-app&redirect_uri=http://example.com
+ * firefox http://localhost:9999/uaa/oauth/authorize?response_type=code&client_id=admin-app&redirect_uri=http://example.com
  *
- * <html>
- *   <body>
- *     <h1>OAuth Approval</h1>
- *     <p>Do you authorize 'admin-app' to access your protected resources?</p>
- *     <form id='confirmationForm' name='confirmationForm' action='/uaa/oauth/authorize' method='post'>
- *       <input name='user_oauth_approval' value='true' type='hidden'/>
- *       <ul>
- *         <li>
- *           <div class='form-group'>scope.read:
- *            <input type='radio' name='scope.read' value='true'>Approve</input>
- *            <input type='radio' name='scope.read' value='false' checked>Deny</input>
- *           </div>
- *         </li>
- *         <li>
- *           <div class='form-group'>scope.write:
- *            <input type='radio' name='scope.write' value='true'>Approve</input>
- *            <input type='radio' name='scope.write' value='false' checked>Deny</input>
- *           </div>
- *         </li>
- *       </ul>
- *       <label>
- *         <input name='authorize' value='Authorize' type='submit'/>
- *       </label>
- *     </form>
- *   </body>
- * </html>
+ * choose scope read
+ * click approve
  *
- * choose scope and click approve, it will redirect you to
+ * it will redirect you to:
  * http://example.com/?code=1fYSVu
  *
- * then application on exmaple.com should prepare request:
+ * then application on example.com should prepare request:
+ *
+ * post /oauth/token?grant_type=authorization_code&code=$code&redirect_uri=$redirectUri&client_id=$clientId
+ *
+ * ie:
  *
  * http --auth admin-app:admin post :9999/uaa/oauth/token\?grant_type=authorization_code\&code=1fYSVu\&redirect_uri=http://example.com\&client_id=admin-app
  *
@@ -122,9 +109,8 @@ import java.util.TimeZone;
  *  "token_type": "bearer"
  * }
  *
- * done.
  *
- * 6. implicit
+ * 6. implicit:
  *
  * http://localhost:9999/uaa/oauth/authorize?response_type=token&client_id=admin-app&state=xyz&redirect_uri=http://example.com
  *
@@ -144,8 +130,27 @@ import java.util.TimeZone;
  *   "scope": "read"
  * }
  *
+ *
+ * 7. password
+ *
+ * post /oauth/token?grant_type=password&username=$username&password=$password
+ *
+ * ie:
+ *
+ * http --auth admin-app:admin post :9999/uaa/oauth/token\?grant_type=password\&username=user\&password=pass
+ *
+ * {
+ *  "access_token": "91b88c40-bb73-4a3d-b7dd-f565211a6f47",
+ *  "expires_in": 43199,
+ *  "refresh_token": "b5b27853-aeb1-4edb-96f1-1da00e9d5adc",
+ *  "scope": "read write",
+ *  "token_type": "bearer"
+ * }
+ *
+ *
  * read more:
  * https://tools.ietf.org/html/rfc6749#section-4
+ *
  */
 @SpringBootApplication
 public class AuthServerApplication {
