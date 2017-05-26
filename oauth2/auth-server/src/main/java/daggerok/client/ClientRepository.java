@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long>, QueryDslPredicateExecutor<Client> {
-  Optional<Client> findFirstByUsername(@Param("usrname") final String username);
+  Optional<Client> findFirstByUsername(@Param("username") final String username);
 }
