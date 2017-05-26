@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: resource-server
+  profiles:
+    include: >
+      props,
+      db-config

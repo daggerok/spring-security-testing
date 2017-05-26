@@ -1,4 +1,5 @@
 plugins {
+    id "idea"
     id "java"
     id "maven"
     id "org.asciidoctor.convert" version "1.5.3"

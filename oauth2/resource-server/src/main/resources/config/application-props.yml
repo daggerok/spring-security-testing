@@ -1,0 +1,7 @@
+db:
+  name: ${DB_NAME:resource-server}
+  user: ${DB_USER:resource-server}
+  pass: ${DB_PASSWORD:resource-server}
+  server:
+    host: ${DB_HOST:localhost}
+    port: ${DB_PORT:54321}
