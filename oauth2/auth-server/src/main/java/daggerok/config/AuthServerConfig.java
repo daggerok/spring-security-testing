@@ -33,12 +33,12 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
       .inMemory()
         .withClient("public-app")
           .secret("client")
-          .authorizedGrantTypes("password", "authorization_token", "refresh_token")
+          .authorizedGrantTypes("password", "client_credentials", "authorization_code", "refresh_token")
           .scopes("read")
       .and()
         .withClient("admin-app")
           .secret("admin")
-          .authorizedGrantTypes("password", "authorization_token", "refresh_token")
+          .authorizedGrantTypes("password", "client_credentials", "authorization_code", "refresh_token")
           .scopes("read", "write");
   }
 

@@ -57,6 +57,21 @@ import java.util.TimeZone;
  *  "token_type": "bearer"
  * }
  *
+ * 4. client credentials
+ *
+ * http --auth $clientId:$secret post /oauth/token\?grant_type=client_credentials
+ *
+ * ie:
+ *
+ * http --auth admin-app:admin post :9999/uaa/oauth/token\?grant_type=client_credentials
+ *
+ * {
+ *  "access_token": "5d356e7a-187b-4fc2-a559-3ce6aee5e4e1",
+ *  "expires_in": 43199,
+ *  "scope": "read write",
+ *  "token_type": "bearer"
+ * }
+ *
  * basic auth (oauth is not using):
  *
  * HTTPie:
